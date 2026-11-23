@@ -18,7 +18,7 @@ const arg = (n, d) => {
 const REPO = arg('repo', 'ASnowe/ASnowe.github.io');
 const DIR = path.resolve(arg('dir', process.cwd()));
 const BRANCH = arg('branch', 'master');
-const INCLUDE = arg('include', 'index.html,README.md,.gitignore,package.json,build.mjs,src,tools,shots').split(',').map((s) => s.trim()).filter(Boolean);
+const INCLUDE = arg('include', 'index.html,README.md,.gitignore,package.json,build.mjs,src,tools,shots,.github').split(',').map((s) => s.trim()).filter(Boolean);
 const BACKUP_BRANCH = arg('backup-branch', '');
 const BACKUP_DIR = arg('backup-dir', 'D:/obo/deploy');
 const MESSAGE = arg('message', '🎄 Christmas Stars：Three.js 圣诞星辰交互页面');
