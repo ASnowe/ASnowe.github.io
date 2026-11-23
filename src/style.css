@@ -1,15 +1,15 @@
 :root {
-  --ink: #f4ece2;
-  --ink-dim: rgba(244, 236, 226, 0.62);
-  --ink-faint: rgba(244, 236, 226, 0.34);
-  --gold: #e9c9a2;
-  --rose: #f0bfcd;
-  --ice: #b9c9e8;
-  --panel: rgba(14, 12, 18, 0.46);
-  --panel-solid: rgba(10, 9, 13, 0.72);
-  --line: rgba(255, 226, 208, 0.14);
-  --line-strong: rgba(255, 226, 208, 0.3);
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  --ink: #f3ecfa;
+  --ink-dim: rgba(243, 236, 250, 0.62);
+  --ink-faint: rgba(243, 236, 250, 0.34);
+  --gold: #e8c483;
+  --violet: #b79ce8;
+  --violet-deep: #8f6bd8;
+  --panel: rgba(16, 11, 26, 0.46);
+  --panel-solid: rgba(10, 7, 18, 0.72);
+  --line: rgba(183, 156, 232, 0.16);
+  --line-strong: rgba(183, 156, 232, 0.32);
+  --shadow: 0 18px 50px rgba(6, 3, 12, 0.62);
   --font-display: "Cormorant Garamond", "Optima", "Palatino Linotype", "Songti SC", Georgia, "Times New Roman", serif;
   --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -21,7 +21,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #000;
+  background: #06040c;
   overflow: hidden;
   color: var(--ink);
   font-family: var(--font-ui);
@@ -39,8 +39,8 @@ html, body {
 .fx-vignette {
   position: absolute; inset: 0; pointer-events: none; z-index: 2;
   background:
-    radial-gradient(120% 92% at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.55) 100%),
-    radial-gradient(60% 40% at 22% 40%, rgba(120, 150, 220, 0.06), transparent 70%);
+    radial-gradient(120% 92% at 50% 46%, rgba(0,0,0,0) 42%, rgba(4,2,9,0.6) 100%),
+    radial-gradient(60% 40% at 22% 40%, rgba(140, 100, 220, 0.09), transparent 70%);
   mix-blend-mode: normal;
 }
 .fx-grain {
@@ -65,11 +65,14 @@ html, body {
   transition: opacity 1.1s var(--ease) 0.5s, transform 1.1s var(--ease) 0.5s;
 }
 .ready .brand { opacity: 1; transform: none; }
-.brand-mark { width: 22px; height: 22px; display: block; filter: drop-shadow(0 0 8px rgba(233, 201, 162, 0.55)); }
-.brand-mark svg { width: 100%; height: 100%; fill: var(--gold); }
+.brand-avatar {
+  width: 26px; height: 26px; border-radius: 50%; object-fit: cover; flex: none;
+  border: 1px solid rgba(232, 196, 131, 0.55);
+  box-shadow: 0 0 10px rgba(183, 156, 232, 0.5), 0 0 22px rgba(143, 107, 216, 0.28);
+}
 .brand-text { display: flex; flex-direction: column; line-height: 1; letter-spacing: 0.34em; }
 .brand-text b { font-size: 11px; font-weight: 600; color: var(--ink); }
-.brand-text i { font-size: 9px; font-style: normal; letter-spacing: 0.5em; color: var(--ink-faint); margin-top: 5px; }
+.brand-text i { font-size: 9px; font-style: normal; letter-spacing: 0.42em; color: var(--gold); margin-top: 5px; }
 
 /* ---------- 问候语 ---------- */
 .greeting {
@@ -90,19 +93,19 @@ html, body {
   line-height: 1.02;
   letter-spacing: 0.012em;
   white-space: nowrap;
-  color: #f7efe2;
-  text-shadow: 0 0 28px rgba(255, 228, 196, 0.22), 0 2px 40px rgba(0, 0, 0, 0.6);
+  color: #f6f0ff;
+  text-shadow: 0 0 30px rgba(183, 156, 232, 0.45), 0 2px 44px rgba(0, 0, 0, 0.65);
 }
 .greeting-row { display: flex; align-items: center; gap: clamp(16px, 2vw, 30px); }
 .moon {
   width: clamp(74px, 9vw, 120px); height: clamp(74px, 9vw, 120px);
   flex: none;
-  filter: drop-shadow(0 0 22px rgba(176, 204, 255, 0.5)) drop-shadow(0 0 60px rgba(140, 170, 235, 0.28));
+  filter: drop-shadow(0 0 20px rgba(183, 156, 232, 0.45)) drop-shadow(0 0 54px rgba(143, 107, 216, 0.3));
   animation: moonBreath 6.5s ease-in-out infinite;
 }
 @keyframes moonBreath {
-  0%, 100% { filter: drop-shadow(0 0 20px rgba(176,204,255,0.42)) drop-shadow(0 0 54px rgba(140,170,235,0.22)); }
-  50% { filter: drop-shadow(0 0 30px rgba(176,204,255,0.62)) drop-shadow(0 0 78px rgba(140,170,235,0.34)); }
+  0%, 100% { filter: drop-shadow(0 0 18px rgba(183,156,232,0.38)) drop-shadow(0 0 48px rgba(143,107,216,0.24)); }
+  50% { filter: drop-shadow(0 0 30px rgba(183,156,232,0.62)) drop-shadow(0 0 76px rgba(143,107,216,0.4)); }
 }
 .greeting-sub {
   margin: 0; font-size: clamp(12px, 1.15vw, 15px); line-height: 1.9;
@@ -190,7 +193,7 @@ html, body {
 }
 .tool svg { width: 18px; height: 18px; }
 .tool:hover { color: var(--ink); background: rgba(255, 255, 255, 0.07); border-color: var(--line); transform: translateY(-1px); }
-.tool.is-on { color: var(--gold); background: rgba(233, 201, 162, 0.1); border-color: rgba(233, 201, 162, 0.22); }
+.tool.is-on { color: var(--violet); background: rgba(183, 156, 232, 0.12); border-color: rgba(183, 156, 232, 0.26); }
 .tool::after {
   content: attr(title); position: absolute; right: calc(100% + 12px); top: 50%;
   transform: translateY(-50%) translateX(6px);
@@ -216,16 +219,16 @@ html, body {
 /* ---------- 加载 ---------- */
 .loading {
   position: absolute; inset: 0; z-index: 20; display: grid; place-items: center;
-  background: #000; transition: opacity 1s var(--ease), visibility 0s linear 1s;
+  background: #06040c; transition: opacity 1s var(--ease), visibility 0s linear 1s;
 }
 .loading.hide { opacity: 0; visibility: hidden; }
 .loading-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .loading-star { width: 42px; height: 42px; animation: spinStar 4.5s linear infinite; }
-.loading-star svg { width: 100%; height: 100%; fill: var(--gold); filter: drop-shadow(0 0 14px rgba(233,201,162,.6)); }
+.loading-star svg { width: 100%; height: 100%; fill: var(--violet); filter: drop-shadow(0 0 14px rgba(183,156,232,.65)); }
 @keyframes spinStar { to { transform: rotate(360deg); } }
 .loading-text { margin: 0; font-size: 11px; letter-spacing: 0.46em; color: var(--ink-dim); text-indent: 0.46em; }
-.loading-track { width: 168px; height: 1px; background: rgba(255,255,255,0.12); overflow: hidden; }
-.loading-track i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, rgba(233,201,162,.2), var(--gold)); transition: width 0.35s var(--ease); }
+.loading-track { width: 168px; height: 1px; background: rgba(183, 156, 232, 0.18); overflow: hidden; }
+.loading-track i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, rgba(183,156,232,.2), var(--gold)); transition: width 0.35s var(--ease); }
 .loading-pct { margin: 0; font-size: 9.5px; letter-spacing: 0.28em; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
 
 .noscript { position: absolute; inset: 0; display: grid; place-items: center; color: var(--ink-dim); font-size: 14px; letter-spacing: .1em; }

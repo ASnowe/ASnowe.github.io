@@ -48,10 +48,10 @@ const QUALITY = {
 };
 
 const PALETTE = {
-  tree:   [0xffffff, 0xfff2f6, 0xffdfe9, 0xf6d7e2, 0xffe9e4, 0xeef0fb],
-  globe:  [0xffffff, 0xfdf0f4, 0xffe0ea, 0xe8ecf8, 0xffece6],
-  light:  [0xffd79a, 0xffb3c6, 0xa9d3ff, 0xfff3c4, 0xff9f86, 0xd8c1ff],
-  bg:     [0xffffff, 0xdfe7ff, 0xffe9d6, 0xffffff, 0xf0d9ff],
+  tree:   [0xd8bcfa, 0xc9a9f0, 0xb79ce8, 0xffffff, 0xe9dcff, 0x9f7fe0],
+  globe:  [0xf5ecff, 0xe4d4ff, 0xd2b8f5, 0xc9a9f0, 0xffffff, 0xb98fe4],
+  light:  [0xe8c483, 0xd4a64a, 0xb79ce8, 0x9f7fe0, 0xc9a2f0, 0xfff0c8],
+  bg:     [0xf3e8ff, 0xe2d6f5, 0xffffff, 0xd8c4f0, 0xcbb4ea],
 };
 
 function pickQuality() {
@@ -112,7 +112,7 @@ function initRenderer() {
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, Q.dpr));
   renderer.setSize(width, height, false);
-  renderer.setClearColor(0x000000, 1);
+  renderer.setClearColor(0x06040c, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.08;
@@ -238,7 +238,7 @@ void main() {
   float d = length(uv);
   if (d > 0.5) discard;
   float a = (1.0 - smoothstep(0.05, 0.5, d)) * vAlpha * 0.55;
-  gl_FragColor = vec4(vec3(0.92, 0.95, 1.0), a);
+  gl_FragColor = vec4(vec3(0.94, 0.89, 1.0), a);
 }
 `;
 
@@ -590,7 +590,7 @@ function buildFocusTools() {
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(MAX * 3), 3));
   const mat = new THREE.LineBasicMaterial({
-    color: 0xffe7ef, transparent: true, opacity: 0,
+    color: 0xe8d4ff, transparent: true, opacity: 0,
     blending: THREE.AdditiveBlending, depthWrite: false,
   });
   constellation = new THREE.LineSegments(geo, mat);
