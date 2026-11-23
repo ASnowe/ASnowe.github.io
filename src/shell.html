@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#000000" />
+<title>Christmas Stars · 圣诞星辰</title>
+<style>/*__CSS__*/</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="stage"></canvas>
+
+  <!-- 画面质感叠层 -->
+  <div class="fx-vignette" aria-hidden="true"></div>
+  <div class="fx-grain" aria-hidden="true"></div>
+
+  <!-- 品牌 -->
+  <header class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2.6l2.05 5.6 5.6 2.05-5.6 2.05L12 17.9l-2.05-5.6L4.35 10.25l5.6-2.05z"/></svg>
+    </span>
+    <span class="brand-text"><b>CHRISTMAS</b><i>STARS</i></span>
+  </header>
+
+  <!-- 问候语 + 月亮 -->
+  <section class="greeting" id="greeting">
+    <h1 class="greeting-title">Merry Christmas,</h1>
+    <div class="greeting-row">
+      <svg class="moon" viewBox="0 0 160 160" role="img" aria-label="月亮">
+        <defs>
+          <radialGradient id="moonFill" cx="42%" cy="36%" r="72%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="58%" stop-color="#eef2fb"/>
+            <stop offset="100%" stop-color="#c3cddf"/>
+          </radialGradient>
+          <filter id="moonGlow" x="-70%" y="-70%" width="240%" height="240%">
+            <feGaussianBlur stdDeviation="9" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3.2"/>
+          </filter>
+        </defs>
+        <circle cx="80" cy="80" r="46" fill="#cfe0ff" opacity=".38" filter="url(#soft)"/>
+        <circle cx="80" cy="80" r="38" fill="url(#moonFill)"/>
+        <g fill="#b9c4d6" opacity=".30">
+          <ellipse cx="63" cy="62" rx="7" ry="5"/>
+          <ellipse cx="96" cy="70" rx="5" ry="4"/>
+          <ellipse cx="74" cy="97" rx="6" ry="4.2"/>
+          <ellipse cx="101" cy="93" rx="3.4" ry="2.6"/>
+        </g>
+        <g stroke="#6c7689" stroke-width="3.4" stroke-linecap="round" fill="none" opacity=".78">
+          <path d="M62 78c0 6 8 6 8 0"/>
+          <path d="M90 78c0 6 8 6 8 0"/>
+        </g>
+        <path d="M74 92c2.6 3.4 9.4 3.4 12 0" stroke="#6c7689" stroke-width="3.2" stroke-linecap="round" fill="none" opacity=".78"/>
+        <g fill="#f4a8b8" opacity=".45">
+          <ellipse cx="55" cy="88" rx="6" ry="3.6"/>
+          <ellipse cx="105" cy="88" rx="6" ry="3.6"/>
+        </g>
+      </svg>
+      <p class="greeting-sub">
+        愿每一颗星辰<br/>都照亮你今晚的梦
+        <span class="greeting-tag">2026 · CHRISTMAS STARS</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 选中星辰的信息 -->
+  <aside class="info-card" id="info" aria-live="polite">
+    <div class="info-head">
+      <span class="info-dot"></span>
+      <span class="info-title" id="info-title">星辰 #00000</span>
+      <button class="info-close" id="info-close" title="返回全景 (Esc)" aria-label="返回全景">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      </button>
+    </div>
+    <dl class="info-grid" id="info-grid"></dl>
+    <p class="info-note">已进入该星辰视角 · 拖拽可环绕，滚轮可继续缩放</p>
+  </aside>
+
+  <!-- 交互提示 -->
+  <div class="hint" id="hint">
+    <span class="hint-dot"></span>
+    <span>拖拽旋转 · 滚轮缩放 · <b>点击任意星辰</b>进入它的视角</span>
+  </div>
+
+  <!-- 工具栏 -->
+  <nav class="toolbar" id="toolbar" aria-label="控制面板">
+    <button class="tool" data-act="reset" title="复位视角 (Space)"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v4h-4" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="tool" data-act="zoom-in" title="放大 (+)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.6" stroke="currentColor" stroke-width="1.9" fill="none"/><path d="M16 16l4.4 4.4M11 8.4v5.2M8.4 11h5.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button>
+    <button class="tool" data-act="zoom-out" title="缩小 (-)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.6" stroke="currentColor" stroke-width="1.9" fill="none"/><path d="M16 16l4.4 4.4M8.4 11h5.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button>
+    <span class="tool-sep"></span>
+    <button class="tool is-on" data-act="snow" title="飘雪 (S)"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+    <button class="tool is-on" data-act="lines" title="星辰连线 (L)"><svg viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.2" fill="currentColor"/><circle cx="18" cy="9" r="2.2" fill="currentColor"/><circle cx="10" cy="17" r="2.2" fill="currentColor"/><path d="M7.7 8.3l8.6.5M16.6 10.8l-5.2 4.7" stroke="currentColor" stroke-width="1.3"/></svg></button>
+    <button class="tool" data-act="sound" title="音效 (M)"><svg viewBox="0 0 24 24"><path d="M5 9.5h3l4-3.2v11.4l-4-3.2H5z" fill="currentColor"/><path d="M15.6 9a4.2 4.2 0 0 1 0 6M18.2 6.6a7.6 7.6 0 0 1 0 10.8" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg></button>
+    <button class="tool" data-act="reshuffle" title="换一片星空 (R)"><svg viewBox="0 0 24 24"><path d="M4 7h3.2c2.6 0 3.4 2 4.4 4s1.8 4 4.4 4H20M16.4 4.4L20 7l-3.6 2.6M4 17h3.2c1.5 0 2.4-1 3.2-2.4M20 17h-3.6c-1 0-1.7-.4-2.4-1.1" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="tool" data-act="fullscreen" title="全屏 (F)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <span class="tool-sep"></span>
+    <button class="tool" data-act="ui" title="隐藏界面 (H)"><svg viewBox="0 0 24 24"><path d="M2.6 12S6 5.8 12 5.8 21.4 12 21.4 12 18 18.2 12 18.2 2.6 12 2.6 12z" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/></svg></button>
+  </nav>
+
+  <div class="fps" id="fps" hidden></div>
+
+  <div class="credit">Built with Three.js</div>
+
+  <!-- 加载层 -->
+  <div class="loading" id="loading">
+    <div class="loading-inner">
+      <div class="loading-star" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><path d="M24 4l4.4 12.2L41 20.4l-12.6 4.2L24 37l-4.4-12.4L7 20.4l12.6-4.2z"/></svg>
+      </div>
+      <p class="loading-text">正在点亮星空</p>
+      <div class="loading-track"><i id="loading-bar"></i></div>
+      <p class="loading-pct" id="loading-pct">0%</p>
+    </div>
+  </div>
+
+  <noscript><div class="noscript">此页面需要启用 JavaScript 与 WebGL。</div></noscript>
+</div>
+<script>/*__JS__*/</script>
+</body>
+</html>

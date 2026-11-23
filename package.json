@@ -1,0 +1,14 @@
+{
+  "name": "christmas-stars",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Three.js 圣诞星辰 · 由各自轨道运行的星辰构成的交互式圣诞树",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.5",
+    "three": "^0.160.0"
+  }
+}
